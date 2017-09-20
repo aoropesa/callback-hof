@@ -2,12 +2,14 @@ Callbacks and Higher-Order Functions
 
 Challenge 1
 Create a function addTwo that accepts one input and adds 2 to it.
+
 function addTwo(input){
     return input + 2;
 }
 
 Challenge 2
 Create a function addS that accepts one input and adds an "s" to it.
+
 function(input){
     return input + 's';
 }
@@ -16,8 +18,13 @@ Challenge 3
 Create a function called map that takes two inputs:
 an array of numbers (a list of numbers), a 'callback'
  function - a function that is applied to each element of the array (inside of the function 'map’).
+
  function map(arr,fn){
-  return fn(arr);
+  var result = [];
+  for(init i = 0, i < arr.length, i++){
+    result.push(fn(arr[i]));
+  }
+  return result;
  }
 
 Have map return a new array filled with numbers that are the result of
@@ -35,16 +42,23 @@ forEach(letters, function(char) {
   alphabet += char;
 });
 console.log(alphabet);   //prints 'abcd'
-function forEach(arr,fn){
-fn(arr)
+
+function forEach(arr, fn){
+  var str = "";
+  for(init i = 0, i < arr.length, i++){
+    str += fn(arr[i]);
+  }
+  return str;
 }
 
 Extension 1
 In the first part of the extension, you're going to rebuild map as mapWith.
  This time you're going to use forEach inside of mapWith instead of using a for loop.
+
 function mapWith(arr){
 return arr.forEach(elem)=>alphabet+=elem;
 }
+
 Extension 2
 The function reduce takes an array and reduces the elements to a single value.
  For example it can sum all the numbers, multiply them,
@@ -65,7 +79,7 @@ Here's how it works. The function has an "accumulator value" which starts as the
   Then add(4, 1) to make it 5. Finally add(5, 3) brings it to 8, which is returned.
 
 function reduce(arr,fn,ac){
-return arr.forEach(e)=>ac+=fn(e,ac);
+return arr.forEach(e) => ac += fn(e, ac);
 }
 
 
@@ -87,7 +101,14 @@ function intersection(arr1, arr2){
 }
 
 Extension 4
-Construct a function union that compares input arrays and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array. BONUS: Use reduce!
+Construct a function union that compares input arrays and returns a new array that contains all elements.
+If there are duplicate elements, only add it once to the new array.
+Preserve the order of the elements starting from the first element of the first input array. BONUS: Use reduce!
+
+function union(arr){
+  var arr = [];
+  
+}
 
 Extension 5
 Construct a function objOfMatches that accepts two arrays and a callback. objOfMatches will build an object and return it. To build the object, objOfMatches will test each element of the first array using the callback to see if the output matches the corresponding element (by index) of the second array. If there is a match, the element from the first array becomes a key in an object, and the element from the second array becomes the corresponding value.
