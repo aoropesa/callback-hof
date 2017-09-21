@@ -4,6 +4,9 @@ Challenge 1
 Create a function addTwo that accepts one input and adds 2 to it.
 
 function addTwo(input){
+  if(typeof input !== 'number'){
+  return 'Must supply a number';
+  }
     return input + 2;
 }
 
@@ -11,6 +14,9 @@ Challenge 2
 Create a function addS that accepts one input and adds an "s" to it.
 
 function(input){
+  if(typeof input !== 'string'){
+  return 'Must supply a string';
+  }
     return input + 's';
 }
 
@@ -44,19 +50,22 @@ forEach(letters, function(char) {
 console.log(alphabet);   //prints 'abcd'
 
 function forEach(arr, fn){
-  var str = "";
   for(init i = 0, i < arr.length, i++){
-    str += fn(arr[i]);
+     fn(arr[i]);
   }
-  return str;
 }
 
 Extension 1
 In the first part of the extension, you're going to rebuild map as mapWith.
  This time you're going to use forEach inside of mapWith instead of using a for loop.
 
-function mapWith(arr){
-return arr.forEach(elem)=>alphabet+=elem;
+
+function mapWith(arr,fn){
+  var result = [];
+  forEach(arr,elem =>{
+  result.push(fn(elem]));
+  });
+  return result;
 }
 
 Extension 2
@@ -78,14 +87,19 @@ Here's how it works. The function has an "accumulator value" which starts as the
   The accumulator's value is now 4.
   Then add(4, 1) to make it 5. Finally add(5, 3) brings it to 8, which is returned.
 
-function reduce(arr,fn,ac){
-return arr.forEach(e) => ac += fn(e, ac);
-}
+function reduce(arr,fn,initial = 0){
+  let acc = initial;
+  for(let i=0;i<arr.length;i++){
+    acc = fn(acc, arr[i]);
+    }
+    return acc;
+ }
 
 
 
 Extension 3
-Construct a function intersection that compares input arrays and returns a new array with elements found in all of the inputs.
+Construct a function intersection that compares input arrays and returns a new array with elements found
+in all of the inputs.
 BONUS: Use reduce!
 
 function intersection(arr1, arr2){
@@ -93,25 +107,68 @@ function intersection(arr1, arr2){
   for(init y = 0, y <= arr1.length, y++){
     for(init x = 0, x <= arr2.length, x++){
       if(arr1[y] === arr2[x]){
+        if(arr.indexOf(arr1[y]) < 0){
+
         arr.push(arr1[y])
+        }
       }
     }
   }
   return arr;
 }
 
+function intersection(arrays){
+  const args = [...arguments];
+
+  return args.reduce((prev, curr)=>{
+    return prev.filter(elem=>{
+      return curr.includes(elem);
+    });
+  });
+}
+
+let a = new Set([1,2,3]);
+let b = new Set([4,3,2]);
+let intersection = new Set([...a].filter(x => b.has(x)));
+
 Extension 4
 Construct a function union that compares input arrays and returns a new array that contains all elements.
 If there are duplicate elements, only add it once to the new array.
 Preserve the order of the elements starting from the first element of the first input array. BONUS: Use reduce!
 
-function union(arr){
-  var arr = [];
-  
-}
+function union(){
+  arguments.forEach(function(array){
+   if(typeof array !== 'array'){
+    return 'Must supply an array';
+    }
+  })
+   var newArr = Array.from(arguments)
+   return newArr.reduce(function(acc, array){
+    return acc.concat(array.filter(function(num){
+     return acc.indexOf(num) === -1;
+    }))
+   })
+  }
+
+
+
+
 
 Extension 5
-Construct a function objOfMatches that accepts two arrays and a callback. objOfMatches will build an object and return it. To build the object, objOfMatches will test each element of the first array using the callback to see if the output matches the corresponding element (by index) of the second array. If there is a match, the element from the first array becomes a key in an object, and the element from the second array becomes the corresponding value.
+Construct a function objOfMatches that accepts two arrays and a callback. objOfMatches will
+ build an object and return it. To build the object, objOfMatches will test each element of
+ the first array using the callback to see if the output matches the corresponding element (by index)
+  of the second array. If there is a match, the element from the first array becomes a key in an object,
+  and the element from the second array becomes the corresponding value.
 
+  function objOfMatches(arr1,arr2,callback){
+
+  }
+  function callback(key, second){
+    this.key = second;
+  }
 Extension 6
-Construct a function multiMap that will accept two arrays: an array of values and an array of callbacks. multiMap will return an object whose keys match the elements in the array of values. The corresponding values that are assigned to the keys will be arrays consisting of outputs from the array of callbacks, where the input to each callback is the key.
+Construct a function multiMap that will accept two arrays: an array of values and an array of callbacks.
+multiMap will return an object whose keys match the elements in the array of values. The corresponding values
+ that are assigned to the keys will be arrays consisting of outputs from the array of callbacks, where the
+  input to each callback is the key.
