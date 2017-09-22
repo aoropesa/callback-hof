@@ -162,13 +162,34 @@ Construct a function objOfMatches that accepts two arrays and a callback. objOfM
   and the element from the second array becomes the corresponding value.
 
   function objOfMatches(arr1,arr2,callback){
-
-  }
-  function callback(key, second){
-    this.key = second;
+    let obj = {};
+    arr1.forEach(function(e, index){
+    if(callback(arr1[index]) === arr2[index]){
+     obj[arr1[index]] = arr2[index];
+      };
+     });
+     return obj;
   }
 Extension 6
 Construct a function multiMap that will accept two arrays: an array of values and an array of callbacks.
 multiMap will return an object whose keys match the elements in the array of values. The corresponding values
  that are assigned to the keys will be arrays consisting of outputs from the array of callbacks, where the
   input to each callback is the key.
+
+
+  10:19 PM: function multiMap(arr, arrcallback) {
+    let obj = {};
+
+    for (let i = 0; i < arr.length; i++) {
+      arrcallback.forEach(func => {
+        let val = func(arr[i]);
+        if (!obj[arr[i]]) {
+          obj[arr[i]] = [].concat(val);
+        } else {
+          obj[arr[i]] = obj[arr[i]].concat(val);
+        }
+      });
+    }
+
+    return obj;
+  }
